@@ -74,6 +74,8 @@ if __name__ == "__main__":
     if not dest_folder.endswith('/'):
         dest_folder += '/'
 
+    os.makedirs(dest_folder, exist_ok=True)
+
     image_names = [name for name in os.listdir(args.source_folder) if name.lower().endswith(image_extensions)]
 
     for image in image_names:
