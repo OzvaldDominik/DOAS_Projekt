@@ -19,8 +19,8 @@ def get_neighbors(r, c,grid_rows=16, grid_cols=16):
     return neighbors
 
 
-def generate_mask(img, grid_rows=16, grid_cols=16, limit=(GRID_COLS // 2) * (GRID_ROWS // 2),neighbors=False):
-    height, width = img.shape[:2]
+def generate_mask(img_shape, grid_rows=16, grid_cols=16, limit=(GRID_COLS // 2) * (GRID_ROWS // 2),neighbors=False):
+    height, width = img_shape[:2]
     cell_height = height // grid_rows
     cell_width = width // grid_cols
     gird = np.zeros((grid_rows, grid_cols))
@@ -83,9 +83,9 @@ if __name__ == "__main__":
         mask = np.ones((img.shape[0], img.shape[1], 1))
         if multi :
             for i in range(0,12,4):
-                mask = mask * generate_mask(img, grid_rows=GRID_ROWS - i, grid_cols=GRID_COLS - i, limit=32//(i+1),neighbors=neighbors)
+                mask = mask * generate_mask(img.shape, grid_rows=GRID_ROWS - i, grid_cols=GRID_COLS - i, limit=32//(i+1),neighbors=neighbors)
         else:
-            mask = generate_mask(img, grid_rows=GRID_ROWS - grid_size, grid_cols=GRID_COLS - grid_size, limit=limit,neighbors=neighbors)
+            mask = generate_mask(img.shape, grid_rows=GRID_ROWS - grid_size, grid_cols=GRID_COLS - grid_size, limit=limit,neighbors=neighbors)
 
         img = img * mask
         print(f"Storing: {dest_folder + image} ")
